@@ -12,6 +12,7 @@ const hint = document.querySelector("#hint");
 const moonDate = document.querySelector("#moonDate");
 const moonAge = document.querySelector("#moonAge");
 const moonPhase = document.querySelector("#moonPhase");
+const phaseShadow = document.querySelector("#phaseShadow");
 
 const state = {
   zoom: 1,
@@ -53,6 +54,38 @@ function lunarPhaseName(age) {
   return "有明月のころ";
 }
 
+function phaseShadowPath(age) {
+  const progress = age / SYNODIC_MONTH;
+  const waxing = progress < 0.5;
+  const samples = 40;
+  const outerSide = waxing ? -1 : 1;
+  const terminator = [];
+  const outer = [];
+  const phaseAngle = waxing
+    ? Math.PI - progress * 2 * Math.PI
+    : (progress - 0.5) * 2 * Math.PI;
+
+  const point = (x, y) => `${(50 + x * 50).toFixed(2)} ${(50 + y * 50).toFixed(2)}`;
+  for (let i = 0; i <= samples; i += 1) {
+    const y = -1 + (2 * i) / samples;
+    const edge = Math.sqrt(Math.max(0, 1 - y * y));
+    outer.push(point(outerSide * edge, y));
+  }
+  for (let i = samples; i >= 0; i -= 1) {
+    const y = -1 + (2 * i) / samples;
+    const edge = Math.sqrt(Math.max(0, 1 - y * y));
+    const terminatorX = waxing
+      ? -Math.cos(phaseAngle) * edge
+      : Math.cos(phaseAngle) * edge;
+    terminator.push(point(terminatorX, y));
+  }
+  return `M ${outer.join(" L ")} L ${terminator.join(" L ")} Z`;
+}
+
+function updatePhaseMask(age) {
+  phaseShadow.setAttribute("d", phaseShadowPath(age));
+}
+
 function updateTodayMoon() {
   const now = new Date();
   const age = lunarAge(now);
@@ -64,6 +97,7 @@ function updateTodayMoon() {
   moonDate.textContent = dateLabel;
   moonAge.textContent = `月齢 ${age.toFixed(1)}`;
   moonPhase.textContent = `${lunarPhaseName(age)} · 輝面 ${illumination}%`;
+  updatePhaseMask(age);
 }
 
 function renderLabels() {
