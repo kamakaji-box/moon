@@ -1,1 +1,48 @@
-
+// Prototype display coordinates are intentionally separate from lunar lat/lon.
+// Replace provisional x/y values with the validated projection when the atlas data is formalized.
+export const landmarks = [
+  {
+    id: "mare-imbrium",
+    nameJa: "雨の海",
+    nameLatin: "Mare Imbrium",
+    type: "mare",
+    lat: 32.8,
+    lon: -15.6,
+    x: 0.413,
+    y: 0.318,
+    description: "月の北西側に広がる大きな玄武岩平原。",
+  },
+  {
+    id: "mare-serenitatis",
+    nameJa: "晴れの海",
+    nameLatin: "Mare Serenitatis",
+    type: "mare",
+    lat: 28.0,
+    lon: 17.5,
+    x: 0.597,
+    y: 0.344,
+    description: "北東寄りに見える、丸みのある海。",
+  },
+  {
+    id: "mare-tranquillitatis",
+    nameJa: "静かの海",
+    nameLatin: "Mare Tranquillitatis",
+    type: "mare",
+    lat: 8.5,
+    lon: 31.4,
+    x: 0.674,
+    y: 0.453,
+    description: "アポロ11号の着陸地点を含む月の海。",
+  },
+  {
+    id: "mare-crisium",
+    nameJa: "危機の海",
+    nameLatin: "Mare Crisium",
+    type: "mare",
+    lat: 17.0,
+    lon: 59.1,
+    x: 0.828,
+    y: 0.406,
+    description: "月の東縁近くに浮かぶ、独立した楕円形の海。",
+  },
+];
