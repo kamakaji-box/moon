@@ -148,7 +148,7 @@ export const landmarks = [
   },
   {
     id: "mare-frigoris",
-    nameJa: "冷の海",
+    nameJa: "氷の海",
     nameLatin: "Mare Frigoris",
     type: "mare",
     lat: 57.5923,
