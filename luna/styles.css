@@ -158,6 +158,43 @@ button { font: inherit; }
   letter-spacing: 0.12em;
 }
 
+.today-moon {
+  position: absolute;
+  z-index: 3;
+  top: max(78px, calc(env(safe-area-inset-top) + 78px));
+  left: max(22px, env(safe-area-inset-left));
+  display: grid;
+  gap: 0.16rem;
+  padding: 0.56rem 0.68rem 0.6rem;
+  border-left: 1px solid rgba(255, 239, 190, 0.54);
+  color: rgba(244, 241, 231, 0.78);
+  background: linear-gradient(90deg, rgba(2, 3, 7, 0.38), transparent);
+  pointer-events: none;
+}
+
+.today-moon__heading {
+  color: rgba(255, 239, 190, 0.92);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+}
+
+.today-moon__date {
+  color: rgba(232, 228, 215, 0.48);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+}
+
+.today-moon__age {
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+}
+
+.today-moon__phase {
+  color: rgba(232, 228, 215, 0.58);
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+}
+
 .dev-toggle,
 .reset-view {
   position: absolute;
