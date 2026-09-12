@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#020307" />
     <meta name="description" content="今夜の月を、月面地名と一緒に静かに眺めるミニアプリの試作" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="stylesheet" href="styles.css?v=20260912-phase2" />
+    <link rel="stylesheet" href="styles.css?v=20260912-phase3" />
     <title>Luna — 月面アトラス試作</title>
   </head>
   <body>
@@ -21,7 +21,7 @@
                 <feGaussianBlur stdDeviation="1.15"></feGaussianBlur>
               </filter>
             </defs>
-            <path id="phaseShadow" fill="#020307" fill-opacity="0.88" stroke="#020307" stroke-width="0.24" stroke-linejoin="round"></path>
+            <path id="phaseShadow" fill="#020307" fill-opacity="0.88" stroke="#020307" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"></path>
             <circle id="phaseRimGlow" cx="50" cy="50" r="49.25" fill="none" stroke-width="2.2" opacity="0.12" filter="url(#phaseRimBlur)"></circle>
             <circle id="phaseRim" cx="50" cy="50" r="49.25" fill="none" stroke-width="0.58" opacity="0.24"></circle>
           </svg>
@@ -57,6 +57,6 @@
       </section>
     </main>
 
-    <script type="module" src="app.js?v=20260912-phase2"></script>
+    <script type="module" src="app.js?v=20260912-phase3"></script>
   </body>
 </html>
