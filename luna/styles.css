@@ -102,6 +102,20 @@ button { font: inherit; }
   transition: opacity 160ms ease;
 }
 
+.landmark--crater {
+  color: rgba(247, 243, 231, 0.86);
+  font-size: clamp(0.72rem, 2.35vw, 0.92rem);
+  letter-spacing: 0.06em;
+}
+
+.landmark--crater::before {
+  width: 0.34rem;
+  height: 0.34rem;
+  margin-right: 0.32rem;
+  border-color: rgba(231, 239, 255, 0.84);
+  box-shadow: 0 0 8px rgba(197, 215, 255, 0.52);
+}
+
 .landmark::before {
   content: "";
   display: inline-block;

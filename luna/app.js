@@ -30,7 +30,7 @@ const midpoint = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 });
 
 function renderLabels() {
   labels.innerHTML = landmarks.map((landmark) => `
-    <div class="landmark" data-id="${landmark.id}" aria-label="${landmark.nameJa}">
+    <div class="landmark landmark--${landmark.type}" data-id="${landmark.id}" aria-label="${landmark.nameJa}">
       <span>${landmark.nameJa}</span>
       <span class="landmark__roman">${landmark.nameLatin}</span>
     </div>
@@ -64,6 +64,9 @@ function render() {
     if (!node) continue;
     node.style.left = `${geometry.left + landmark.x * geometry.scaledSize}px`;
     node.style.top = `${geometry.top + landmark.y * geometry.scaledSize}px`;
+    const visible = state.zoom >= (landmark.minZoom ?? 1);
+    node.style.opacity = visible ? "1" : "0";
+    node.style.visibility = visible ? "visible" : "hidden";
   }
 
   if (state.devMode) {

@@ -26,7 +26,10 @@ python3 -m http.server 4173
 - NASA SVS: https://svs.gsfc.nasa.gov/4720
 - 直接画像: https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_2k.jpg
 
-この試作では、全球の正距円筒画像を正面表示の円形領域に切り出している。表示用 `x/y` は挙動確認用の仮値で、正式版では IAU/NASA 等の検証済み月面緯度・経度から投影して生成する。
+この試作では、全球の正距円筒画像を正面表示の円形領域に切り出している。表示用 `x/y` は仮の投影値だが、`lat/lon` と分離して保持している。代表地形の座標・正式名は、IAU承認名を収録するUSGS Gazetteer of Planetary Nomenclatureの月面中心点データを参照した。
+
+- USGS / IAU Moon Gazetteer: https://planetarynames.wr.usgs.gov/Page/MOON/target
+- 月面中心点GISデータ: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MOON_nomenclature_center_pts.zip
 
 ## 次の段階
 
