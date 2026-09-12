@@ -13,6 +13,8 @@ const moonDate = document.querySelector("#moonDate");
 const moonAge = document.querySelector("#moonAge");
 const moonPhase = document.querySelector("#moonPhase");
 const phaseShadow = document.querySelector("#phaseShadow");
+const phaseRim = document.querySelector("#phaseRim");
+const phaseRimGlow = document.querySelector("#phaseRimGlow");
 
 const state = {
   zoom: 1,
@@ -57,7 +59,7 @@ function lunarPhaseName(age) {
 function phaseShadowPath(age) {
   const progress = age / SYNODIC_MONTH;
   const waxing = progress < 0.5;
-  const samples = 40;
+  const samples = 120;
   const outerSide = waxing ? -1 : 1;
   const terminator = [];
   const outer = [];
@@ -84,6 +86,19 @@ function phaseShadowPath(age) {
 
 function updatePhaseMask(age) {
   phaseShadow.setAttribute("d", phaseShadowPath(age));
+
+  const illumination = (1 - Math.cos((2 * Math.PI * age) / SYNODIC_MONTH)) * 0.5;
+  const dark = [132, 126, 208];
+  const light = [224, 231, 205];
+  const color = dark.map((channel, index) => Math.round(channel + (light[index] - channel) * illumination));
+  const colorValue = `rgb(${color.join(", ")})`;
+  const rimOpacity = 0.18 + illumination * 0.16;
+  const glowOpacity = 0.08 + illumination * 0.07;
+
+  phaseRim.setAttribute("stroke", colorValue);
+  phaseRim.setAttribute("opacity", rimOpacity.toFixed(3));
+  phaseRimGlow.setAttribute("stroke", colorValue);
+  phaseRimGlow.setAttribute("opacity", glowOpacity.toFixed(3));
 }
 
 function updateTodayMoon() {

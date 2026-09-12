@@ -92,6 +92,10 @@ button { font: inherit; }
   pointer-events: none;
 }
 
+.phase-overlay circle {
+  vector-effect: non-scaling-stroke;
+}
+
 .labels {
   position: absolute;
   inset: 0;
