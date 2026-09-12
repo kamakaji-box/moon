@@ -9,6 +9,9 @@ const devReadout = document.querySelector("#devReadout");
 const probeReadout = document.querySelector("#probeReadout");
 const resetView = document.querySelector("#resetView");
 const hint = document.querySelector("#hint");
+const moonDate = document.querySelector("#moonDate");
+const moonAge = document.querySelector("#moonAge");
+const moonPhase = document.querySelector("#moonPhase");
 
 const state = {
   zoom: 1,
@@ -24,9 +27,44 @@ let gesture = null;
 let moved = false;
 let hintTimer;
 
+const SYNODIC_MONTH = 29.530588853;
+const KNOWN_NEW_MOON = Date.parse("2000-01-06T18:14:00Z");
+
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 const midpoint = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 });
+
+function lunarAge(date = new Date()) {
+  const elapsedDays = (date.getTime() - KNOWN_NEW_MOON) / 86400000;
+  return ((elapsedDays % SYNODIC_MONTH) + SYNODIC_MONTH) % SYNODIC_MONTH;
+}
+
+function lunarPhaseName(age) {
+  if (age < 1.5) return "新月のころ";
+  if (age < 6.5) return "細い月";
+  if (age < 9.5) return "上弦へ";
+  if (age < 11.5) return "上弦のころ";
+  if (age < 14.5) return "満ちていく月";
+  if (age < 16.5) return "満月のころ";
+  if (age < 20.5) return "満月のあと";
+  if (age < 23.5) return "寝待月のころ";
+  if (age < 25.5) return "下弦へ";
+  if (age < 27.5) return "下弦のころ";
+  return "有明月のころ";
+}
+
+function updateTodayMoon() {
+  const now = new Date();
+  const age = lunarAge(now);
+  const illumination = Math.round((1 - Math.cos((2 * Math.PI * age) / SYNODIC_MONTH)) * 50);
+  const dateLabel = new Intl.DateTimeFormat("ja-JP", {
+    month: "long",
+    day: "numeric",
+  }).format(now);
+  moonDate.textContent = dateLabel;
+  moonAge.textContent = `月齢 ${age.toFixed(1)}`;
+  moonPhase.textContent = `${lunarPhaseName(age)} · 輝面 ${illumination}%`;
+}
 
 function renderLabels() {
   labels.innerHTML = landmarks.map((landmark) => `
@@ -227,3 +265,5 @@ resetView.addEventListener("click", (event) => {
 window.addEventListener("resize", resize);
 renderLabels();
 resize();
+updateTodayMoon();
+window.setInterval(updateTodayMoon, 60000);
